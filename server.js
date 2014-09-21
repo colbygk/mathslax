@@ -103,3 +103,8 @@ app.use('/', router);
 var port = process.env.PORT || 8080;
 app.listen(port);
 console.log("Slax is listening on port " + port);
+console.log("Make a test request with something like:");
+console.log("curl -v -X POST 'localhost:%d/api/slotify' --data " +
+            "'{\"text\": \"I got an equation like math(`f(x) = x^2/sin(x) * " +
+            "E_0`)\"}' -H \"Content-Type: application/json\"", port);
+console.log('___________\n');
