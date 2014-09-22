@@ -22,6 +22,7 @@ var extractRawMath = function(text) {
 };
 
 var renderMath = function(mathObject, parseOptions) {
+  console.log('rendering for:', mathObject.input);
   var defaultOptions = {
     math: mathObject.input,
     format: 'AsciiMath',
@@ -35,9 +36,11 @@ var renderMath = function(mathObject, parseOptions) {
   var typesetOptions = _.extend(defaultOptions, parseOptions);
   var deferred = Q.defer();
   var typesetCallback = function(result) {
+    console.log('received result');
     if (!result || !result.png || !!result.errors) {
       mathObject.error = new Error('Invalid response from MathJax.');
       mathObject.output = result;
+      console.log(mathObject.error);
       deferred.reject(mathObject);
       return;
     }
@@ -59,7 +62,9 @@ var renderMath = function(mathObject, parseOptions) {
     mathObject.output = filepath;
     deferred.resolve(mathObject);
   };
+  console.log("calling typeset");
   MathJax.typeset(typesetOptions, typesetCallback);
+  console.log('... called');
   return deferred.promise;
 }
 

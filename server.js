@@ -16,11 +16,13 @@ router.post('/typeset', function(req, res) {
   var requestString = req.body.text;
   console.log(requestString);
   var typesetPromise = Typeset.typeset(requestString);
+  console.log('promise?', typesetPromise);
   if (typesetPromise === null) {
     res.end(); // Empty 200 response -- no text was found to typeset.
     return;
   }
   var promiseSuccess = function(mathObjects) {
+    console.log('success in typesetting!');
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
     var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
@@ -31,6 +33,7 @@ router.post('/typeset', function(req, res) {
     console.log(error);
     res.end(); // Empty 200 response.
   };
+  console.log('setting type...');
   typesetPromise.then(promiseSuccess, promiseError);
 });
 
