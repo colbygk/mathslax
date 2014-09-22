@@ -1,7 +1,9 @@
 cd node_modules/MathJax-node
 
-git submodule init
-git submodule update
+git clone https://github.com/mathjax/MathJax mathjax
+cd mathjax
+git checkout develop
+cd ..
 
 cd batik
 curl http://apache.org/dist/xmlgraphics/batik/batik-1.7-jre13.zip > batik-1.7-jre13.zip

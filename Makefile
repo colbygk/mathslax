@@ -2,5 +2,5 @@ server:
 	node server.js
 
 install:
-	./scripts/install-dependencies.sh
+	npm install && ./scripts/install-dependencies.sh
 
