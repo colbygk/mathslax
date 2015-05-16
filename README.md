@@ -7,6 +7,7 @@ Requires Java, Node.JS and NPM.
 
 ```shell
 $ sudo apt-get install nodejs npm default-jre
+$ sudo apt-get install openjdk-7-jdk # unless a JDK is already installed
 ```
 
 # Set up
