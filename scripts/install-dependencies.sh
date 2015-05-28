@@ -6,9 +6,10 @@ git checkout develop
 cd ..
 
 cd batik
-curl http://apache.org/dist/xmlgraphics/batik/batik-1.7-jre13.zip > batik-1.7-jre13.zip
+curl http://apache.org/dist/xmlgraphics/batik/binaries/batik-1.7-jre13.zip > batik-1.7-jre13.zip
 jar xvf batik-1.7-jre13.zip
-mv batik-1.7/* .
+mkdir ../../../batik
+mv batik-1.7/* ../../../batik
 cd -
 
 cd -
