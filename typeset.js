@@ -7,7 +7,7 @@ MathJax.start();
 
 // Application logic for typesetting.
 var extractRawMath = function(text) {
-  var mathRegex = /math\(`(.*?)`\)/g;
+  var mathRegex = /^\s*math!\s*`(.*)`/g;
   var results = [];
   var match;
   while (match = mathRegex.exec(text)) {

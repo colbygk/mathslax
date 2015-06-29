@@ -26,7 +26,7 @@ router.post('/typeset', function(req, res) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
     var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
-    res.json({'text' : htmlResult});
+    res.json({'text': htmlResult, mrkdwn: true});
   };
   var promiseError = function(error) {
     console.log('Error in typesetting:');
