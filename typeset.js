@@ -6,8 +6,8 @@ var fs = require('fs');
 MathJax.start();
 
 // Application logic for typesetting.
-var extractRawMath = function(text) {
-  var mathRegex = /^\s*math\!\s*(.*)$/g;
+var extractRawMath = function(text, prefix) {
+  var mathRegex = new RegExp("/^\s*" + prefix + "\s*(.*)$/g");
   var results = [];
   var match;
   while (match = mathRegex.exec(text)) {
@@ -63,8 +63,9 @@ var renderMath = function(mathObject, parseOptions) {
   return deferred.promise;
 }
 
-var typeset = function(text) {
-  var rawMathArray = extractRawMath(text);
+var typeset = function(text, prefixed) {
+  if (typeof(prefixed) === 'undefined') prefixed = 'math\\!';
+  var rawMathArray = extractRawMath(text, prefixed);
   if (rawMathArray.length === 0) {
     return null;
   }
