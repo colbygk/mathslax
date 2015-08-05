@@ -26,7 +26,7 @@ var renderMath = function(mathObject, parseOptions) {
     math: mathObject.input,
     format: 'AsciiMath',
     png: true,
-    dpi: 144,
+    dpi: 600,
     font: 'TeX',
     ex: 12,
     width: 600,
