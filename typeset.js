@@ -7,7 +7,7 @@ MathJax.start();
 
 // Application logic for typesetting.
 var extractRawMath = function(text, prefix) {
-  var mathRegex = new RegExp("/^\s*" + prefix + "\s*(.*)$/g");
+  var mathRegex = new RegExp("^\s*" + prefix + "\s*(.*)$","g");
   var results = [];
   var match;
   while (match = mathRegex.exec(text)) {
@@ -64,7 +64,6 @@ var renderMath = function(mathObject, parseOptions) {
 }
 
 var typeset = function(text, prefixed) {
-  if (typeof(prefixed) === 'undefined') prefixed = 'math\\!';
   var rawMathArray = extractRawMath(text, prefixed);
   if (rawMathArray.length === 0) {
     return null;

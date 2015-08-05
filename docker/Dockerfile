@@ -14,13 +14,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-ENV SERVER host.name
-ENV PORT PORTTOEXPOSE
+ENV SERVER slackjobs.media.mit.edu
+ENV PORT 8099
 
-EXPOSE PORTTOEXPOSE
+EXPOSE 8099
 
 RUN git clone https://github.com/colbygk/mathslax.git
-RUN cd mathslax && make install && nodejs server.js
+WORKDIR /mathslax
+RUN make install
 
-CMD cd mathslax && nodejs server.js
+ENTRYPOINT ["/usr/bin/nodejs"]
+CMD ["server.js"]
 

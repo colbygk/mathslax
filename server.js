@@ -15,9 +15,12 @@ router.get('/', function(req, res) {
 router.post('/typeset', function(req, res) {
   var cd = new Date();
   var requestString = req.body.text;
+  var bpr = 'math\\!';
   console.log(cd + ":" + requestString);
-  var typesetPromise = Typeset.typeset(requestString);
+  console.log( " going to send "+bpr );
+  var typesetPromise = Typeset.typeset(requestString,bpr);
   if (typesetPromise === null) {
+    res.send('no text found to typeset');
     res.end(); // Empty 200 response -- no text was found to typeset.
     return;
   }
@@ -26,6 +29,7 @@ router.post('/typeset', function(req, res) {
                   'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
     var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
     res.json({'text' : htmlResult});
+    res.end();
   };
   var promiseError = function(error) {
     console.log('Error in typesetting:');
@@ -34,12 +38,12 @@ router.post('/typeset', function(req, res) {
   };
   typesetPromise.then(promiseSuccess, promiseError);
 });
-router.post('/typeset-slash', function(req, res) {
+router.post('/slashtypeset', function(req, res) {
   var cd = new Date();
   var requestString = req.body.text;
-  console.log(cd + ":" + requestString);
-  var typesetPromise = Typeset.typeset(requestString, '');
+  var typesetPromise = Typeset.typeset(requestString,'');
   if (typesetPromise === null) {
+    res.send('no text found to typeset');
     res.end(); // Empty 200 response -- no text was found to typeset.
     return;
   }
