@@ -25,3 +25,11 @@ In the Slack channel with the web hook configured, you should be able to
 typeset equations by starting your message with `math!`. For example, `math!
 x^2 * sin(x)` would cause the `mathslax` bot to comment with a link to a
 typeset image of `x^2 * sin(x)`.
+
+# Note About Debian/Ubuntu node vs nodejs
+
+The npm install step can produce hard to diagnose errors on 12.x and later Debian derived systems
+(such as Ubuntu). The binary /usr/bin/node was renamed to /usr/bin/nodejs and many packages
+in npm do not expect this. You can either create a link yourself from /usr/bin/node -> /usr/bin/nodejs or use one of the other various solutions out there (including attempting to use the package
+    nodejs-legacy).  Good luck!
+
