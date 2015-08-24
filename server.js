@@ -80,6 +80,7 @@ app.listen(PORT);
 console.log("Mathslax is listening at http://%s:%s/", SERVER, PORT);
 console.log("Make a test request with something like:");
 console.log("curl -v -X POST '%s:%d/typeset' --data " +
-            "'{\"text\": \"math! f(x) = x^2/sin(x) * E_0\"}' " +
+            "'{\"text\": \"math! f(x) = x^2/sin(x) * E_0\", " +
+              "\"token\": \"" + config.authToken + "\"}' " +
             "-H \"Content-Type: application/json\"", SERVER, PORT);
 console.log('___________\n');
