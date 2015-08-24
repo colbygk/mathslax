@@ -3,6 +3,7 @@ var BodyParser = require('body-parser');
 var Jade = require('jade');
 var Typeset = require('./typeset.js');
 var util = require('util');
+var config = require('./config.js');
 
 var SERVER = process.env.SERVER || '127.0.0.1';
 var PORT = process.env.PORT || '8080';
@@ -18,6 +19,11 @@ router.post('/typeset', function(req, res) {
   var bpr = 'math\\!';
   console.log(cd + ":" + requestString);
   console.log( " going to send "+bpr );
+  var authToken = req.body.token;
+  if (authToken != config.authToken) {
+    res.status(401).send();
+    return;
+  };
   var typesetPromise = Typeset.typeset(requestString,bpr);
   if (typesetPromise === null) {
     res.send('no text found to typeset');
