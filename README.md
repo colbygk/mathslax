@@ -13,6 +13,8 @@ $ sudo apt-get install openjdk-7-jdk # unless a JDK is already installed
 # Set up
 ```shell
 $ cd mathslax
+$ cp config.js.example config.js
+# edit config.js to use your Slack API integration token
 $ make install
 $ SERVER=myhostname.com PORT=9999 node server.js
 ```
