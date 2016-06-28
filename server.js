@@ -27,6 +27,8 @@ router.post('/command', function(req, res) {
                   'serverAddress': util.format('https://%s:%s/', SERVER, PORT)};
     var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
     res.json({
+      response_type: "in_channel",
+      text: requestString,
       attachments: [
         {
           fallback: requestString,
