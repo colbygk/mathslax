@@ -2,6 +2,7 @@ var MathJax = require('MathJax-node/lib/mj-single.js');
 var _ = require('underscore');
 var Q = require('q');
 var fs = require('fs');
+var crypto = require('crypto');
 
 MathJax.start();
 
@@ -41,7 +42,9 @@ var renderMath = function(mathObject, parseOptions) {
       deferred.reject(mathObject);
       return;
     }
-    var filename = encodeURIComponent(mathObject.input).replace(/\%/g, 'pc') + '.png';
+    var hash = crypto.createHash('sha256');
+    hash.update(mathObject.input);
+    var filename = hash.digest('hex') + '.png';
     var filepath = 'static/' + filename;
     if (!fs.existsSync(filepath)) {
       console.log('writing new PNG: %s', filename);
