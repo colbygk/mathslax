@@ -26,7 +26,7 @@ router.post('/typeset', function(req, res) {
   }
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
-                  'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
+                  'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
     var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
     res.json({'text' : htmlResult});
     res.end();
@@ -49,7 +49,7 @@ router.post('/slashtypeset', function(req, res) {
   }
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
-                  'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
+                  'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
     var htmlResult = Jade.renderFile('./views/slack-slash-response.jade', locals);
     res.send(htmlResult);
     res.end();
