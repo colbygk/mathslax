@@ -25,7 +25,7 @@ var extractRawMath = function(text, prefix) {
 var renderMath = function(mathObject, parseOptions) {
   var defaultOptions = {
     math: mathObject.input,
-    format: 'AsciiMath',
+    format: 'TeX',
     png: true,
     dpi: 600,
     font: 'TeX',
