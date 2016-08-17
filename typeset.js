@@ -32,6 +32,7 @@ var renderMath = function(mathObject, parseOptions) {
     ex: 12,
     width: 600,
     linebreaks: true,
+    timeout: 30 * 1000,
   };
   var typesetOptions = _.extend(defaultOptions, parseOptions);
   var deferred = Q.defer();
