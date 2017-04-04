@@ -2,12 +2,12 @@
     "name": "mathslax",
     "main": "server.js",
     "dependencies": {
-        "MathJax-node": "git://github.com/mathjax/MathJax-node.git#bd58499fc16d6544c7f514fb46350c9d2e845747",
+        "mathjax-node": "1.0.0",
+        "mathjax-node-svg2png": "1.0.2",
         "body-parser": "1.0.2",
         "express": "4.0.0",
         "jade": "1.7.0",
         "q": "1.0.1",
-        "underscore": "1.7.0",
-        "jsdom": ">= 0.1.23 < 4.0.0"
+        "underscore": "1.7.0"
     }
 }

@@ -1,4 +1,4 @@
-var MathJax = require('MathJax-node/lib/mj-single.js');
+var MathJax = require('mathjax-node-svg2png');
 var _ = require('underscore');
 var Q = require('q');
 var fs = require('fs');
@@ -26,9 +26,7 @@ var renderMath = function(mathObject, parseOptions) {
     math: mathObject.input,
     format: 'AsciiMath',
     png: true,
-    dpi: 600,
     font: 'TeX',
-    ex: 12,
     width: 600,
     linebreaks: true,
   };
