@@ -9,6 +9,6 @@ PNG products.
 ## Setup and run Example
 ```
 $ docker build -t mathslax .
-$ docker run -d -p port:port --name=mathslax mathslax
+$ docker run -d -p port:port --name=mathslax --hostname=mathslax -e SLACK_AUTH_TOKEN="token" mathslax
 ```
 
