@@ -3,6 +3,7 @@ var BodyParser = require('body-parser');
 var Jade = require('jade');
 var Typeset = require('./typeset.js');
 var util = require('util');
+var config = require('./config.js');
 
 var SERVER = process.env.SERVER || '127.0.0.1';
 var PORT = process.env.PORT || '8080';
@@ -18,6 +19,11 @@ router.post('/typeset', function(req, res) {
   var bpr = 'math\\!';
   console.log(cd + ":" + requestString);
   console.log( " going to send "+bpr );
+  var authToken = req.body.token;
+  if (authToken != config.authToken) {
+    res.status(401).send();
+    return;
+  };
   var typesetPromise = Typeset.typeset(requestString,bpr);
   if (typesetPromise === null) {
     res.send('no text found to typeset');
@@ -74,6 +80,7 @@ app.listen(PORT);
 console.log("Mathslax is listening at http://%s:%s/", SERVER, PORT);
 console.log("Make a test request with something like:");
 console.log("curl -v -X POST '%s:%d/typeset' --data " +
-            "'{\"text\": \"math! f(x) = x^2/sin(x) * E_0\"}' " +
+            "'{\"text\": \"math! f(x) = x^2/sin(x) * E_0\", " +
+              "\"token\": \"" + config.authToken + "\"}' " +
             "-H \"Content-Type: application/json\"", SERVER, PORT);
 console.log('___________\n');

@@ -1,0 +1,5 @@
+var authToken = "FIXME"; // from Slack API integration setup
+
+module.exports = {
+  authToken: authToken,
+};
