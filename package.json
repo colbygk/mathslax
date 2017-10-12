@@ -5,6 +5,8 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bunyan": "^1.8.12",
+    "entities": "^1.1.1",
     "express": "^4.16.2",
     "mathjax-node": "^1.2.1",
     "mathjax-node-svg2png": "^1.1.0",
@@ -15,7 +17,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js | ./node_modules/.bin/bunyan"
   },
   "repository": {
     "type": "git",
