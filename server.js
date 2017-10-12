@@ -59,11 +59,10 @@ router.post('/typeset', function(req, res) {
   }
 
   var requestString = entities.decode(req.body.text);
-  var bpr = 'math\\!';
 
   log.info('Request:',requestString);
 
-  var typesetPromise = typeset.typeset(requestString,bpr);
+  var typesetPromise = typeset.typeset(requestString);
   if (typesetPromise === null) {
     res.send('no text found to typeset');
     res.end(); // Empty 200 response -- no text was found to typeset.
@@ -126,6 +125,6 @@ app.listen(PORT);
 log.info(`Mathslax is listening at http://${SERVER}:${PORT}/`);
 log.info('Make a test request with something like:');
 log.info(`curl -v -X POST ${SERVER}:${PORT}/typeset --data ` +
-            '\'{"text": "math! f(x) = E_0\\frac{x^2}{sin(x)}", "token": "none"}\' ' +
+            '\'{"text": "f(x) = E_0\\frac{x^2}{sin(x)}", "token": "none"}\' ' +
             '-H "Content-Type: application/json"');
 log.info('****************************************');
