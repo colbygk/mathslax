@@ -1,13 +1,35 @@
 {
-    "name": "mathslax",
-    "main": "server.js",
-    "dependencies": {
-        "mathjax-node": "1.0.0",
-        "mathjax-node-svg2png": "1.0.2",
-        "body-parser": "1.0.2",
-        "express": "4.0.0",
-        "jade": "1.7.0",
-        "q": "1.0.1",
-        "underscore": "1.7.0"
-    }
+  "name": "mathslax",
+  "version": "1.1.0",
+  "description": "typesetting solution for all of your slack chat needs",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mathjax-node": "^1.2.1",
+    "mathjax-node-svg2png": "^1.1.0",
+    "pug": "^2.0.0-rc.4",
+    "q": "^1.5.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colbygk/mathslax.git"
+  },
+  "keywords": [
+    "mathematics",
+    "typesetting",
+    "slack"
+  ],
+  "author": "colbygk@media.mit.edu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/colbygk/mathslax/issues"
+  },
+  "homepage": "https://github.com/colbygk/mathslax#readme"
 }
