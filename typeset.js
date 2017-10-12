@@ -2,12 +2,13 @@ var MathJax = require('mathjax-node-svg2png');
 var _ = require('underscore');
 var Q = require('q');
 var fs = require('fs');
+var crypto = require('crypto');
 
 MathJax.start();
 
 // Application logic for typesetting.
 var extractRawMath = function(text, prefix) {
-  var mathRegex = new RegExp("^\s*" + prefix + "\s*(.*)$","g");
+  var mathRegex = new RegExp("^\s*" + prefix + "\s*((\n|.)*)","g");
   var results = [];
   var match;
   while (match = mathRegex.exec(text)) {
@@ -24,11 +25,12 @@ var extractRawMath = function(text, prefix) {
 var renderMath = function(mathObject, parseOptions) {
   var defaultOptions = {
     math: mathObject.input,
-    format: 'AsciiMath',
+    format: 'TeX',
     png: true,
     font: 'TeX',
     width: 600,
     linebreaks: true,
+    timeout: 30 * 1000,
   };
   var typesetOptions = _.extend(defaultOptions, parseOptions);
   var deferred = Q.defer();
@@ -39,7 +41,9 @@ var renderMath = function(mathObject, parseOptions) {
       deferred.reject(mathObject);
       return;
     }
-    var filename = encodeURIComponent(mathObject.input).replace(/\%/g, 'pc') + '.png';
+    var hash = crypto.createHash('sha256');
+    hash.update(mathObject.input);
+    var filename = hash.digest('hex') + '.png';
     var filepath = 'static/' + filename;
     if (!fs.existsSync(filepath)) {
       console.log('writing new PNG: %s', filename);

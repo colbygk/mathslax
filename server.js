@@ -3,6 +3,7 @@ var BodyParser = require('body-parser');
 var Jade = require('jade');
 var Typeset = require('./typeset.js');
 var util = require('util');
+var entities = require("entities");
 
 var SERVER = process.env.SERVER || '127.0.0.1';
 var PORT = process.env.PORT || '8080';
@@ -14,7 +15,7 @@ router.get('/', function(req, res) {
 });
 router.post('/typeset', function(req, res) {
   var cd = new Date();
-  var requestString = req.body.text;
+  var requestString = entities.decode(req.body.text);
   var bpr = 'math\\!';
   console.log(cd + ":" + requestString);
   console.log( " going to send "+bpr );
@@ -26,7 +27,7 @@ router.post('/typeset', function(req, res) {
   }
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
-                  'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
+                  'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
     var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
     res.json({'text' : htmlResult});
     res.end();
@@ -40,7 +41,7 @@ router.post('/typeset', function(req, res) {
 });
 router.post('/slashtypeset', function(req, res) {
   var cd = new Date();
-  var requestString = req.body.text;
+  var requestString = entities.decode(req.body.text);
   var typesetPromise = Typeset.typeset(requestString,'');
   if (typesetPromise === null) {
     res.send('no text found to typeset');
@@ -49,7 +50,7 @@ router.post('/slashtypeset', function(req, res) {
   }
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
-                  'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
+                  'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
     var htmlResult = Jade.renderFile('./views/slack-slash-response.jade', locals);
     res.send(htmlResult);
     res.end();
