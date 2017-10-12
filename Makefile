@@ -3,3 +3,5 @@ server:
 
 install:
 	npm install
+
+PHONY: install server
