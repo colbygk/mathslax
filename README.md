@@ -26,6 +26,10 @@ typeset equations by starting your message with `math!`. For example, `math!
 x^2 * sin(x)` would cause the `mathslax` bot to comment with a link to a
 typeset image of `x^2 * sin(x)`.
 
+## Slash command
+
+You can also use this as a slash command, provided the POST URL is `/command` instead of `/typeset`.
+
 ### Note About Debian/Ubuntu node vs nodejs
 
 The npm install step can produce hard to diagnose errors on Debian derived systems
