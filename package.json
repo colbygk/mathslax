@@ -8,7 +8,6 @@
     "bunyan": "^1.8.12",
     "entities": "^1.1.1",
     "express": "^4.16.2",
-    "mathjax-node": "^1.2.1",
     "mathjax-node-svg2png": "^1.1.0",
     "pug": "^2.0.0-rc.4",
     "q": "^1.5.0",
