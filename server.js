@@ -95,7 +95,16 @@ router.post('/slashtypeset', function(req, res) {
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
-    res.json({"attachments": [ { "image_url": mathObjects.output } ]});
+    res.json({
+      response_type: 'in_channel',
+      text: requestString,
+      attachments: [
+        {
+          fallback: requestString,
+          image_url: 'http://' + SERVER + ':' + PORT + '/' + mathObjects[0].output,
+        },
+      ],
+    });
     res.end();
   };
   var promiseError = function(error) {
