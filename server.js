@@ -1,6 +1,6 @@
 var Express = require('express');
 var BodyParser = require('body-parser');
-var Jade = require('jade');
+var Jade = require('pug');
 var Typeset = require('./typeset.js');
 var util = require('util');
 var entities = require("entities");
@@ -26,7 +26,7 @@ router.post('/command', function(req, res) {
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': util.format('https://%s:%s/', SERVER, PORT)};
-    var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
+    var htmlResult = Jade.renderFile('./views/slack-response.pug', locals);
     res.json({
       response_type: "in_channel",
       text: requestString,
@@ -61,7 +61,7 @@ router.post('/typeset', function(req, res) {
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
-    var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
+    var htmlResult = Jade.renderFile('./views/slack-response.pug', locals);
     res.json({'text' : htmlResult});
     res.end();
   };
@@ -84,7 +84,7 @@ router.post('/slashtypeset', function(req, res) {
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
-    var htmlResult = Jade.renderFile('./views/slack-slash-response.jade', locals);
+    var htmlResult = Jade.renderFile('./views/slack-slash-response.pug', locals);
     res.send(htmlResult);
     res.end();
   };

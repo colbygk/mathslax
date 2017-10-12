@@ -3,7 +3,7 @@
 A typesetting solution for all of your [Slack](https://slack.com/) chat needs.
 
 # Dependencies
-Requires Java, Node.JS and NPM.
+Requires Java, nodejs and NPM.
 
 ```shell
 $ sudo apt-get install nodejs npm default-jre
