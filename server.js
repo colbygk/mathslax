@@ -49,6 +49,7 @@ router.post('/command', function(req, res) {
   };
   typesetPromise.then(promiseSuccess, promiseError);
 });
+
 router.post('/typeset', function(req, res) {
 
   if (req.body.token !== SLACK_AUTH_TOKEN)
@@ -94,8 +95,7 @@ router.post('/slashtypeset', function(req, res) {
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
-    var htmlResult = pug.renderFile('./views/slack-slash-response.pug', locals);
-    res.send(htmlResult);
+    res.json({"attachments": [ { "image_url": mathObjects.output } ]});
     res.end();
   };
   var promiseError = function(error) {
