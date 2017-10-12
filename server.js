@@ -126,6 +126,6 @@ app.listen(PORT);
 log.info(`Mathslax is listening at http://${SERVER}:${PORT}/`);
 log.info('Make a test request with something like:');
 log.info(`curl -v -X POST ${SERVER}:${PORT}/typeset --data ` +
-            '\'{"text": "math! f(x) = x^2/sin(x) * E_0", "token": "none"}\' ' +
+            '\'{"text": "math! f(x) = E_0\\frac{x^2}{sin(x)}", "token": "none"}\' ' +
             '-H "Content-Type: application/json"');
 log.info('****************************************');
