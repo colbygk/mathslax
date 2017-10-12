@@ -7,14 +7,16 @@ const entities = require('entities');
 const log = require('./lib/log');
 const typeset = require('./lib/typeset.js');
 
-var SERVER = process.env.SERVER || '127.0.0.1';
-var PORT = process.env.PORT || '8080';
+const SERVER = process.env.SERVER || '127.0.0.1';
+const PORT = process.env.PORT || '8080';
+const SLACK_AUTH_TOKEN = process.env.SLACK_AUTH_TOKEN || 'none';
 
 // Install the routes.
-var router = express.Router();
+const router = express.Router();
 router.get('/', function(req, res) {
   res.json(['Hello', 'World', {underDevelopment: true}]);
 });
+
 router.post('/command', function(req, res) {
   var requestString = req.body.text;
   log.info('Request:',requestString);
@@ -48,6 +50,14 @@ router.post('/command', function(req, res) {
   typesetPromise.then(promiseSuccess, promiseError);
 });
 router.post('/typeset', function(req, res) {
+
+  if (req.body.token !== SLACK_AUTH_TOKEN)
+  {
+    log.warn('Unrecongized or no token:',req.body.token);
+    res.status(401).send();
+    return;
+  }
+
   var requestString = entities.decode(req.body.text);
   var bpr = 'math\\!';
 
@@ -101,6 +111,11 @@ router.post('/slashtypeset', function(req, res) {
 // Start the server.
 var app = express();
 
+app.disable('x-powered-by');
+app.use( (req,res,next) => {
+  res.header('X-Powered-By','Love');
+  next();
+});
 app.use(log.middleware);
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
@@ -111,6 +126,6 @@ app.listen(PORT);
 log.info(`Mathslax is listening at http://${SERVER}:${PORT}/`);
 log.info('Make a test request with something like:');
 log.info(`curl -v -X POST ${SERVER}:${PORT}/typeset --data ` +
-            '\'{"text": "math! f(x) = x^2/sin(x) * E_0"}\' ' +
+            '\'{"text": "math! f(x) = x^2/sin(x) * E_0", "token": "none"}\' ' +
             '-H "Content-Type: application/json"');
 log.info('****************************************');
