@@ -54,6 +54,14 @@ router.post('/typeset', function(req, res) {
 });
 
 router.post('/slashtypeset', function(req, res) {
+
+  if (req.body.token !== SLACK_AUTH_TOKEN)
+  {
+    log.warn('Unrecongized or no token:',req.body.token);
+    res.status(401).send();
+    return;
+  }
+
   var requestString = entities.decode(req.body.text);
 
   var typesetPromise = typeset.typeset(requestString,'');
