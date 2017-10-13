@@ -27,12 +27,14 @@ router.post('/typeset', function(req, res) {
 
   log.info('Request:',requestString);
 
-  var typesetPromise = typeset.typeset(requestString);
+  var typesetPromise = typeset.typeset(requestString, 'math!');
+
   if (typesetPromise === null) {
     res.send('no text found to typeset');
-    res.end(); // Empty 200 response -- no text was found to typeset.
+    res.end(); 
     return;
   }
+
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
@@ -40,22 +42,28 @@ router.post('/typeset', function(req, res) {
     res.json({'text' : htmlResult});
     res.end();
   };
+
   var promiseError = function(error) {
     log.info('Error in typesetting:');
     log.info(error);
     res.end(); // Empty 200 response.
   };
+
   typesetPromise.then(promiseSuccess, promiseError);
+
 });
 
 router.post('/slashtypeset', function(req, res) {
   var requestString = entities.decode(req.body.text);
+
   var typesetPromise = typeset.typeset(requestString,'');
+
   if (typesetPromise === null) {
     res.send('no text found to typeset');
     res.end(); // Empty 200 response -- no text was found to typeset.
     return;
   }
+
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
@@ -71,12 +79,15 @@ router.post('/slashtypeset', function(req, res) {
     });
     res.end();
   };
+
   var promiseError = function(error) {
     log.info('Error in typesetting:');
     log.info(error);
     res.end(); // Empty 200 response.
   };
+
   typesetPromise.then(promiseSuccess, promiseError);
+
 });
 
 
