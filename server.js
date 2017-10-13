@@ -13,42 +13,6 @@ const SLACK_AUTH_TOKEN = process.env.SLACK_AUTH_TOKEN || 'none';
 
 // Install the routes.
 const router = express.Router();
-router.get('/', function(req, res) {
-  res.json(['Hello', 'World', {underDevelopment: true}]);
-});
-
-router.post('/command', function(req, res) {
-  var requestString = req.body.text;
-  log.info('Request:',requestString);
-  var typesetPromise = typeset.typeset(requestString,'');
-  if (typesetPromise === null) {
-    res.send('no text found to typeset');
-    res.end(); // Empty 200 response -- no text was found to typeset.
-    return;
-  }
-  var promiseSuccess = function(mathObjects) {
-    var locals = {'mathObjects': mathObjects,
-                  'serverAddress': util.format('https://%s:%s/', SERVER, PORT)};
-    var htmlResult = pug.renderFile('./views/slack-response.pug', locals);
-    res.json({
-      response_type: 'in_channel',
-      text: requestString,
-      attachments: [
-        {
-          fallback: requestString,
-          image_url: htmlResult,
-        },
-      ],
-    });
-    res.end();
-  };
-  var promiseError = function(error) {
-    log.info('Error in typesetting:');
-    log.info(error);
-    res.end(); // Empty 200 response.
-  };
-  typesetPromise.then(promiseSuccess, promiseError);
-});
 
 router.post('/typeset', function(req, res) {
 
