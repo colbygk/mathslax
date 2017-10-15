@@ -1,7 +1,8 @@
+
 const express = require('express');
 const bodyparser = require('body-parser');
 const pug = require('pug');
-const util = require('util');
+// const util = require('util');
 const entities = require('entities');
 
 const log = require('./lib/log');
@@ -37,7 +38,7 @@ router.post('/typeset', function(req, res) {
 
   var promiseSuccess = function(mathObjects) {
     var locals = {'mathObjects': mathObjects,
-                  'serverAddress': `http://${SERVER}:${PORT}/` };
+      'serverAddress': `http://${SERVER}:${PORT}/` };
     var htmlResult = pug.renderFile('./views/slack-response.pug', locals);
     res.json({'text' : htmlResult});
     res.end();
@@ -73,15 +74,18 @@ router.post('/slashtypeset', function(req, res) {
   }
 
   var promiseSuccess = function(mathObjects) {
-    var locals = {'mathObjects': mathObjects,
-                  'serverAddress': SERVER!='127.0.0.1' ? util.format('http://%s:%s/', SERVER, PORT) : 'http://'+req.headers.host+'/' };
+    //var locals = {'mathObjects': mathObjects,
+    //             'serverAddress': SERVER!='127.0.0.1' ?
+    //             util.format('http://%s:%s/', SERVER, PORT) :
+    //             'http://'+req.headers.host+'/' };
     res.json({
       response_type: 'in_channel',
       text: requestString,
       attachments: [
         {
           fallback: requestString,
-          image_url: 'http://' + SERVER + ':' + PORT + '/' + mathObjects[0].output,
+          image_url: 'http://' + SERVER + ':' + PORT + '/'
+            + mathObjects[0].output
         },
       ],
     });
