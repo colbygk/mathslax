@@ -1,4 +1,4 @@
-# MathSlax [](https://travis-ci.org/colbygk/mathslax.svg?branch=master)
+# MathSlax ![](https://travis-ci.org/colbygk/mathslax.svg?branch=master)
 
 A typesetting solution for all of your [Slack](https://slack.com/) chat needs.
 
