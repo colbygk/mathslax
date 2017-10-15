@@ -1,0 +1,24 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "rules": {
+        "curly": [2, "multi-line"],
+        "eol-last": [2],
+        "indent": [2, 2],
+        "quotes": [2, "single"],
+        "linebreak-style": [2, "unix"],
+        "max-len": [2, 80, 4],
+        "semi": [2, "always"],
+        "strict": [2, "never"]
+    },
+    "env": {
+        "node": true
+    },
+    "globals": {
+        "Uint8Array": false,
+        "Uint16Array": false
+    },
+    "extends": "eslint:recommended"
+}
+
