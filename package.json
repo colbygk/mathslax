@@ -17,7 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "make test",
     "start": "node server.js | ./node_modules/.bin/bunyan"
   },
   "repository": {
