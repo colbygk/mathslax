@@ -12,7 +12,6 @@ test('spec', function (t) {
 
 test('createFileName', function (t) {
   const result = typeset.createFileName('ohyeah');
-  console.log(result);
   const expected = 'static/'
     + 'ec5f0b0bf15f3e618dcfa50f21dd666b0ec96c4f38df0c68b8418c0d32b623d8.png';
   t.equal(result, expected);
